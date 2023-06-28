@@ -81,6 +81,91 @@ public class SinglyLinkedList {
         }
         printList(node);
     }
+    public Node detectLoopInList(Node head) {
+        Node fastPointer = head;
+        Node slowPointer = head;
+        while (fastPointer != null || fastPointer.next != null) {
+            slowPointer = slowPointer.next;
+            fastPointer = fastPointer.next.next;
+            if (slowPointer == fastPointer) {
+                System.out.println("loop present");
+                return slowPointer;
+               // break;
+            }
+        }
+        return  null;
+      //  System.out.println("loop not present");
+    }
+    public void findStartOfTheLoop(Node head)
+    {
+        Node slowPointer = detectLoopInList(head);
+        Node temp = head;
+        while(temp != slowPointer)
+        {
+          temp = temp.next;
+          slowPointer = slowPointer.next;
+
+        }
+        System.out.println(temp.data);
+    }
+    public  void removeLoopFromSinglyLinkedList(Node head)
+    {
+        Node slowPointer = detectLoopInList(head);
+        Node temp = head;
+        if(slowPointer != null)
+        {
+            while(slowPointer.next != temp.next)
+            {
+                slowPointer = slowPointer.next;
+                temp = temp.next;
+              //  System.out.println("loop still present");
+            }
+            slowPointer.next = null;
+            printList(head);
+
+        }
+        else {
+            System.out.println("loop still present");
+        }
+
+//        Node detectNode = detectLoopInList(head);
+//        if(detectNode != null)
+//        {
+//            System.out.println("loop still present");
+//        }
+//        else
+//        {
+//            printList(head);
+//        }
+    }
+    public void mergeTwoSortedList(Node a, Node b)
+    {
+        Node dummy = new Node(0);
+        Node temp = dummy;
+        while(a != null && b != null)
+        {
+            if(a.data <= b.data)
+            {
+                temp.next = a;
+                a = a.next;
+            }
+            else
+            {
+                temp.next = b;
+                b = b.next;
+            }
+           // System.out.println("loop");
+        }
+        if(a == null)
+        {
+            temp.next = b;
+        }
+        else
+        {
+            temp.next = a;
+        }
+        printList(temp);
+    }
     public static void main(String[] args)
     {
        Node first = new Node(1);
@@ -96,12 +181,21 @@ public class SinglyLinkedList {
        fifth.next = sixth;
        sixth.next = seventh;
        first.next= secound;
-
+      // seventh.next = ;
        SinglyLinkedList sll = new SinglyLinkedList();
       // sll.printList(first);
       // sll.reverseSinglyLinkedList(first);
       //  sll.middleOfTheNode(first);
       //  sll.findNthElementFromEnd(3, first);
-        sll.removeDublicateFromSinglyLinkedList(first);
+      //  sll.removeDublicateFromSinglyLinkedList(first);
+      //  sll.findStartOfTheLoop(first);
+       // sll.removeLoopFromSinglyLinkedList(first);
+       // sll.printList(first);
+        Node merge1 = new Node(3);
+        Node merge2 = new Node(7);
+        Node merge3 = new Node(10);
+        merge1.next = merge2;
+        merge2.next = merge3;
+        sll.mergeTwoSortedList(merge1,first);
     }
 }
