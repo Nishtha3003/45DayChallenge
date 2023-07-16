@@ -22,8 +22,9 @@ public class StackPackage {
 
      StackPackage sp = new StackPackage();
     // sp.findGreterInRight(new int[]{4, 7, 3, 4, 8, 1});
-     sp.findGreaterInRightStack(new int[]{4, 7, 3, 4, 8, 1});
-
+    // sp.findGreaterInRightStack(new int[]{4, 7, 3, 4, 8, 1});
+    // sp.validParenthesis("{[]}");
+        System.out.println(sp.validParenthesis("{[(]}"));
 
 
     }
@@ -86,6 +87,38 @@ public class StackPackage {
         }
     }
 
+    public boolean validParenthesis(String str)
+    {
+        Stack<Character> stack = new Stack<>();
+        for(char c : str.toCharArray())
+        {
+          if(c == '{' ||c == '[' ||c == '(')
+          {
+              stack.push(c);
+          }
+          else if(stack.isEmpty())
+          {
+              return  false;
+          }
+          else
+          {
+              char temp = stack.peek();
+              if(c == '}' && temp == '{' ||
+                      c == ']' && temp == '[' ||
+                      c == ')' && temp == '(')
+              {
+                  stack.pop();
+              }
+              else
+              {
+                  return false;
+              }
+          }
+        }
+       return stack.isEmpty();
+
+
+    }
 
 
 }
